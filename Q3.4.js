@@ -44,7 +44,7 @@ function Tower(i) {
 	var self = this;
 
 	self.disks = new Stack();
-	self.index = i;
+	self.index = i + 1;
 
 
 	self.isEmpty = function() {
@@ -56,7 +56,7 @@ function Tower(i) {
 
 	self.add = function(d) {
 		if(!self.isEmpty() && self.disks.peek() <= d) {
-			return false;
+			console.error(new Error("Moved disk " + top + " from Tower " + self.index + " to Tower " + t.index));
 		} 
 		else {
 			self.disks.push(d);
@@ -66,20 +66,23 @@ function Tower(i) {
 	self.moveTopTo = function(t) {
 		top = self.disks.pop();
 		t.add(top);
-		console.log("Moved disk " + top + " from base " + self.index + " to base " + t.index);		
+		console.log("Moved disk " + top + " from Tower " + self.index + " to Tower " + t.index);		
 	}
 
 	self.moveDisks = function(n, destination, buffer) {
+		// Starts with the bottom disk
+		// But first move is the top disk, and the recursively
+		// moves down to the initial call, which is the bottom.
 		if (n > 0) {
-			self.moveDisks(n - 1, buffer, destination);
-			self.moveTopTo(destination);
-			buffer.moveDisks(n - 1, destination, self);
+			self.moveDisks(n - 1, buffer, destination); // Move disk above to buffer, then ->
+			self.moveTopTo(destination); // Move disk to destination, then ->
+			buffer.moveDisks(n - 1, destination, self); // Move disk in buffer to destination
 		}
 	}
 }
 
-function moveHanoi() {
-	var n = 3;
+function moveHanoi(num_of_disks) {
+	var n = num_of_disks;
 	var towers = new createTowers(n);
 	for(var i = n; i > 0; i--) {
 		towers[0].add(i);
@@ -91,4 +94,4 @@ function moveHanoi() {
 }
 
 
-moveHanoi();
+moveHanoi(5);

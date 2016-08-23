@@ -59,6 +59,7 @@ function SetOfStacks() {
 	// Follow up
 	self.popAt = function(i) {
 		return self.set[i].pop();
+		// Didn't finish in time.
 	}
 
 }
