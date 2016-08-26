@@ -58,30 +58,26 @@ tree2.left.add(1,4);
 tree2.right.add(5,8);
 
 // Tests
-describe('ValidBST:', function() {
-  describe('BST from [1,2,3,4,5,6,7,8]', function() {
+describe('Check BSTs:', function() {
     it('should return true', function() {
-      	assert.equal(true, isBST(tree));
+      	assert.ok(isBST(tree));
     });
-  });
-  describe('Custom trees:', function() {
     it('should return true', function() {
-      	assert.equal(true, isBST(tree2));
+      	assert.ok(isBST(tree2));
     });
 
     it('should return true', function() {
     	tree2.right.right.add(null, 9);
-      	assert.equal(true, isBST(tree2));
+      	assert.ok(isBST(tree2));
     });
 
     it('should return true', function() {
     	tree2.left.right.add(3, 6);
-      	assert.equal(true, isBST(tree2));
+      	assert.ok(isBST(tree2));
     });
 
     it('should return false', function() {
     	tree2.left.left.add(4, 5);
-      	assert.equal(true, isBST(tree2));
+      	assert.ok(isBST(tree2));
     });
-  });
 });
