@@ -1,5 +1,16 @@
 'use strict';
 
+/*
+8.2 Imagine you have a call center with three levels of employees: 
+respondent, manager, and director. An incoming telephone call must 
+be first allocated to a respondent who is free. If the respondent 
+can't handle the call, he or she must escalate the call to a manager. 
+If the manager is not free or notable to handle it, then the call should 
+be escalated to a director. Design the classes and data structures for this problem. 
+Implement a method dispatchCaL L() which assigns a call to the first available employee.
+*/
+
+// Define Classes
 function Call(dur) {
 	this.duration = dur;
 }
@@ -36,6 +47,8 @@ function CallCenter(respondents, managers, directors) {
 
 	this.messages = [];
 
+	// This method takes a new call and gives it the necessary methods
+	// to create finished call callback
 	this.extendCallClass = function(call) {
 		call.id = ++self.call_counter;
 		call.startCall = function(callback,params) {
@@ -50,10 +63,15 @@ function CallCenter(respondents, managers, directors) {
 	}
 
 	this.dispatchCall = function(call) {
+		// Extend call instance
 		call = self.extendCallClass(call);
+
+		// Assign call to rep in priority order
 		if(self.respondents.avail.length) return self.assignCall(call, 'respondents'); 
 		if(self.managers.avail.length) return self.assignCall(call, 'managers'); 
 		if(self.directors.avail.length) return self.assignCall(call, 'directors'); 
+
+		// When no reps avail
 		return self.leaveMessage(call);
 	}
 
