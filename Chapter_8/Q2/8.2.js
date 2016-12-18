@@ -10,6 +10,9 @@ be escalated to a director. Design the classes and data structures for this prob
 Implement a method dispatchCaL L() which assigns a call to the first available employee.
 */
 
+//Note, this question was answered incorrectly. There needs to be an escalation method
+
+
 // Define Classes
 function Call(dur) {
 	this.duration = dur;
@@ -20,26 +23,17 @@ function Rep(name, title) {
 	this.title = title;
 }
 
+function RepGroup(reps) {
+	this.avail = reps || [];
+	this.busy = [];
+}
+
 function CallCenter(respondents, managers, directors) {
 	var self = this;
 
-	this.respondents = {
-		avail: respondents || [],
-		busy: [],
-		center: self
-	}
-
-	this.managers = {
-		avail: managers || [],
-		busy: [],
-		center: self
-	}
-
-	this.directors = {
-		avail: directors || [],
-		busy: [],
-		center: self
-	}
+	this.respondents = new RepGroup(respondents);
+	this.managers = new RepGroup(managers);
+	this.directors = new RepGroup(directors);
 
 	this.call_history = [];
 
